@@ -1,7 +1,6 @@
 <template>
     <div class="shinobu__slideshow">
-        <img :src="$oshino.state.images[1]" />
-        <p>Shinobu is {{shinobuMsg}}</p>
+        <img :src="`/shinobu-${$oshino.state.incrementer + 1}.jpg`" />
     </div>
 </template>
 <script>
@@ -17,12 +16,22 @@ export default defineComponent({
         const setMsg = () => {
             shinobuMsg.value = props.message
         }
+        const increment = nuxtApp.$oshino.state.incrementer
         onMounted(setMsg)
         onMounted(nuxtApp.$oshino.useImages)
+        onMounted(nuxtApp.$oshino.incrementImage)
         return {
-            shinobuMsg
+            shinobuMsg,
+            increment
         }
     }
 })
-//const shinobu = useShinobu()
 </script>
+<style lang="scss">
+.shinobu {
+    &__slideshow {
+        height:100vh;
+        width:100%;
+    }
+}
+</style>

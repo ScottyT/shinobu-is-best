@@ -5,7 +5,7 @@
     </div>
     <Slideshow message="best Girl and breedable"/>
     <!-- Remove this component to get started! -->
-    <NuxtWelcome/>
+    <!-- <NuxtWelcome/> -->
   </div>
 </template>
 <script setup>
