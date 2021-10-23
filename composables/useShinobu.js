@@ -1,32 +1,36 @@
 import { useState } from '#app'
 const state = ref({
     images: [],
-    incrementer: 0
+    currentImage: ""
 })
+const count = ref(0)
+const inc = reactive({ count })
 const useImages = () => {
     for (var i = 1; i < 8; i++) {
         state.value.images.push(`/shinobu-${i}.jpg`)
     }
 }
+const setCurrentImage = (i) => {
+    useImages()
+    state.value.currentImage = state.value.images[Math.abs(i)]
+}
 const incrementImage = () =>  {
-    //var i = 0
-    
-    console.log("initial:", state.value.incrementer)
+    setCurrentImage(inc.count)
     setTimeout(() => {
         //var currentNum = state.value.incrementer + 1
-        state.value.incrementer++
-        console.log("After increase: ", state.value.incrementer)
-        if (state.value.incrementer == 8) {
-            state.value.incrementer = 0
-            
+        
+        inc.count++
+        if (inc.count == 8) {
+            inc.count = 0
         }
         incrementImage()
         
-    }, 1000)
+    }, 4000)
 }
 
 export default {
     state: readonly(state.value),
     useImages,
-    incrementImage
+    incrementImage,
+    inc
 }

@@ -1,10 +1,10 @@
 <template>
-  <div>
-    <div @click="updateHeadline">
+  <div class="main">
+    <!-- <div @click="updateHeadline">
       <h1>{{$headline(headline !== '' ? headline : 'is lewdable')}}</h1>
-    </div>
-    <Slideshow message="best Girl and breedable"/>
-    <!-- Remove this component to get started! -->
+    </div> -->
+    <Slideshow columnStyle="--two-column" :headline="$headline('is cute!')" message="best Girl and breedable"/>
+    <!--Use this when I use pages/ dir. <NuxtPage /> -->
     <!-- <NuxtWelcome/> -->
   </div>
 </template>
