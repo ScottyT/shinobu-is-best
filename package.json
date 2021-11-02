@@ -6,6 +6,7 @@
     "start": "node .output/server/index.mjs --port 4000"
   },
   "devDependencies": {
+    "@nuxtjs/pwa": "^3.3.5",
     "nuxt3": "3.0.0-27255478.7ede9b1",
     "sass": "^1.43.4"
   }
