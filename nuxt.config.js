@@ -4,7 +4,6 @@ import { resolve } from 'pathe'
 export default defineNuxtConfig({
     components: true,
     ssr: true,
-    target: 'static',
     alias: {
         'images': resolve(__dirname, './assets/images'),
         'style': resolve(__dirname, '@/assets/style'),
