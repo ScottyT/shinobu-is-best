@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "nuxt dev --hostname localhost --port 4000",
     "build": "nuxt build",
-    "start": "node .output/server/index.mjs --port 4000"
+    "start": "node .output/server/index.mjs --port 4000",
+    "generate": "nuxt generate"
   },
   "devDependencies": {
     "@nuxtjs/pwa": "^3.3.5",
