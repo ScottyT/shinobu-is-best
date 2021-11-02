@@ -1,7 +1,7 @@
-import { defineNuxtConfig } from 'nuxt3'
+/* import { defineNuxtConfig } from 'nuxt3' */
 import { resolve } from 'pathe'
 
-export default defineNuxtConfig({
+export default {
     alias: {
         'images': resolve(__dirname, './assets/images'),
         'style': resolve(__dirname, '@/assets/style'),
@@ -17,5 +17,8 @@ export default defineNuxtConfig({
                 }
             }
         }
-    }
-})
+    },
+    /* serverMiddleware: [
+        { path: '/', handler: '~/functions/index.js' }
+    ] */
+}

@@ -14,6 +14,7 @@
     </div>
 </template>
 <script>
+//import compSinobu from '@/composables/shinobu'
 export default defineComponent({
     props: {
         message: String,
@@ -22,6 +23,8 @@ export default defineComponent({
     },
     setup(props) {
         const nuxtApp = useNuxtApp()
+        const s = compShinobu()
+        console.log(s)
        // const current = setCurrentImage()
         const shinobuMsg = ref("")
         const setMsg = () => {
@@ -29,13 +32,13 @@ export default defineComponent({
         }
         //const increment = nuxtApp.$oshino.state.incrementer
         const images = nuxtApp.$oshino.state.images
-
         onMounted(setMsg)
         onMounted(nuxtApp.$oshino.useImages)
         onMounted(nuxtApp.$oshino.incrementImage)
         return {
             shinobuMsg,
             images,
+            s
         }
     }
 })

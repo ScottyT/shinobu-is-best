@@ -3,14 +3,10 @@
   "scripts": {
     "dev": "nuxt dev --hostname localhost --port 4000",
     "build": "nuxt build",
-    "start": "node .output/server/index.mjs"
+    "start": "node .output/server/index.mjs --port 4000"
   },
   "devDependencies": {
-    "@nuxtjs/style-resources": "^1.2.1",
-    "fibers": "^5.0.0",
-    "node-sass": "^6.0.1",
-    "nuxt3": "latest",
-    "sass": "^1.43.3",
-    "sass-loader": "^10.2.0"
+    "nuxt3": "3.0.0-27255478.7ede9b1",
+    "sass": "^1.43.4"
   }
 }
