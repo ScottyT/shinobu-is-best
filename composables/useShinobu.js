@@ -16,6 +16,7 @@ const setCurrentImage = (i) => {
 }
 const incrementImage = () =>  {
     setCurrentImage(inc.count)
+    console.log(state.value.currentImage)
     setTimeout(() => {
         //var currentNum = state.value.incrementer + 1
         
@@ -25,7 +26,7 @@ const incrementImage = () =>  {
         }
         incrementImage()
         
-    }, 4000)
+    }, 6000)
 }
 
 export default {

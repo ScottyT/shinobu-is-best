@@ -1,7 +1,7 @@
 <template>
     <div class="slideshow">
         <div class="slideshow__message">
-            <h1 class="slideshow__message slideshow__message--h1">Shinobu is <strong>{{shinobuMsg}}</strong></h1>
+            <h1 class="slideshow__message slideshow__message--h1">Shinobu is <strong>{{message}}</strong></h1>
             <h2 class="slideshow__message slideshow__message--h2">{{headline}}</h2>
         </div>
         <div class="slideshow__slides">
@@ -21,24 +21,40 @@ export default defineComponent({
         columnStyle: String,
         headline:String
     },
-    setup(props) {
-        const nuxtApp = useNuxtApp()
-        const s = compShinobu()
-        console.log(s)
+    setup(props, context) {
+        /* const inc = ref(0)
+        const currentImage = ref("") */
+        /* const currentImage = computed(() => {
+            return images[Math.abs(inc.value)]
+        }) */
+        const oshino = context.root.$oshino
        // const current = setCurrentImage()
-        const shinobuMsg = ref("")
-        const setMsg = () => {
-            shinobuMsg.value = props.message
-        }
+        const images = oshino.state.images
         //const increment = nuxtApp.$oshino.state.incrementer
-        const images = nuxtApp.$oshino.state.images
-        onMounted(setMsg)
-        onMounted(nuxtApp.$oshino.useImages)
-        onMounted(nuxtApp.$oshino.incrementImage)
+        /* const setCurrentImage = (i) => {
+            currentImage.value = images[Math.abs(i)]
+        }
+         */
+        /* const incrementImage = () =>  {
+            setCurrentImage(inc.value)
+            setTimeout(() => {
+                //var currentNum = state.value.incrementer + 1
+                
+                inc.value++
+                if (inc.value == 8) {
+                    inc.value = 0
+                }
+                incrementImage()
+                
+            }, 4000)
+        } */
+        console.log(oshino.inc)
+        onMounted(oshino.useImages)
+        onMounted(oshino.incrementImage)
+         /* onMounted(oshino.useImages)
+         onMounted(incrementImage) */
         return {
-            shinobuMsg,
-            images,
-            s
+            images
         }
     }
 })
@@ -65,13 +81,13 @@ export default defineComponent({
     }
     &__slides {
         position:relative;
-        width:50%;
+        width:60%;
     }
 }
-.image-slideshow-item {
+/* .image-slideshow-item {
     display: inline-block;
     margin-right: 10px;
-}
+} */
 
 .image-slideshow-enter-active,
 .image-slideshow-leave-active {
