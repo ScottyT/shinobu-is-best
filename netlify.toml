@@ -1,5 +1,5 @@
 [dev]
-  command = "sleep 999999999"
+  command = "npm run dev"
   framework = "#custom"
   functions = ".output/server"
   port = 8888

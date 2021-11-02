@@ -1,9 +1,10 @@
-/* import { defineNuxtConfig } from 'nuxt3' */
+import { defineNuxtConfig } from 'nuxt3'
 import { resolve } from 'pathe'
 
-export default {
+export default defineNuxtConfig({
     components: true,
-    target: 'server',
+    ssr: true,
+    target: 'static',
     alias: {
         'images': resolve(__dirname, './assets/images'),
         'style': resolve(__dirname, '@/assets/style'),
@@ -25,6 +26,15 @@ export default {
     },
     pwa: {
         icon: false,
+        manifest: {
+            name: "Shinobu is Best",
+            short_name: "Shinobu",
+            lang: "en"
+        },
+        meta: {
+            viewport: 'width=device-width, initial-scale=1',
+            name: "Shinobu Best Girl"
+        }
     },
     generate: {
         fallback: '404.html'
@@ -32,4 +42,4 @@ export default {
     /* serverMiddleware: [
         { path: '/', handler: '~/functions/index.js' }
     ] */
-}
+})
