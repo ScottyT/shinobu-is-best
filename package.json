@@ -1,14 +1,12 @@
 {
   "private": true,
   "scripts": {
-    "dev": "nuxt dev --hostname localhost --port 4000",
-    "build": "nuxt build",
-    "start": "node .output/server/index.mjs --port 4000",
-    "generate": "nuxt generate"
+    "dev": "nuxi dev --hostname localhost --port 4000",
+    "build": "nuxi build",
+    "start": "node .output/server/index.mjs"
   },
   "devDependencies": {
-    "@nuxtjs/pwa": "^3.3.5",
-    "nuxt3": "3.0.0-27255478.7ede9b1",
+    "nuxt3": "latest",
     "sass": "^1.43.4"
   }
 }

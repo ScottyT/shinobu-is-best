@@ -1,17 +1,17 @@
 import { defineNuxtConfig } from 'nuxt3'
 import { resolve } from 'pathe'
 
-export default defineNuxtConfig({
+export default {
     components: true,
     ssr: true,
-    alias: {
+    /* alias: {
         'images': resolve(__dirname, './assets/images'),
         'style': resolve(__dirname, '@/assets/style'),
         'data': resolve(__dirname, './assets/other/data')
-    },
-    buildModules: [
+    }, */
+    /* buildModules: [
         '@nuxtjs/pwa'
-    ],
+    ], */
     css: ['@/assets/style/index.css'],
     vite: {
         css: {
@@ -23,8 +23,7 @@ export default defineNuxtConfig({
             }
         }
     },
-    pwa: {
-        icon: false,
+    /* pwa: {
         manifest: {
             name: "Shinobu is Best",
             short_name: "Shinobu",
@@ -34,11 +33,8 @@ export default defineNuxtConfig({
             viewport: 'width=device-width, initial-scale=1',
             name: "Shinobu Best Girl"
         }
-    },
-    generate: {
-        fallback: '404.html'
-    }
+    }, */
     /* serverMiddleware: [
         { path: '/', handler: '~/functions/index.js' }
     ] */
-})
+}
