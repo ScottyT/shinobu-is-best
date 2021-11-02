@@ -3,7 +3,7 @@ import { resolve } from 'pathe'
 
 export default {
     components: true,
-    target: 'static',
+    target: 'server',
     alias: {
         'images': resolve(__dirname, './assets/images'),
         'style': resolve(__dirname, '@/assets/style'),
