@@ -4,12 +4,12 @@
             <h1 class="slideshow__message slideshow__message--h1">Shinobu is <strong>{{message}}</strong></h1>
             <h2 class="slideshow__message slideshow__message--h2">{{headline}}</h2>
         </div>
-        <div class="slideshow__slides">
-            <transition-group name="image-slideshow">
-                <div class="slideshow__shinobu" v-for="i in $oshino.inc" :key="i">
-                    <img :src="$oshino.state.currentImage" />
-                </div>
-            </transition-group>
+        {{curHeight}}
+        <div class="slideshow__slides" ref="image" >
+            <transition name="image-slideshow" mode="out-in" tag="div" v-on:after-enter="check">
+                <img :src="cur" :key="$oshino.state.currentImage" />
+                <!-- <img ref="image" src="/shinobu-5.jpg"  /> -->
+            </transition>
         </div>
     </div>
 </template>
@@ -21,42 +21,98 @@ export default defineComponent({
         columnStyle: String,
         headline:String
     },
-    setup(props, context) {
-        /* const inc = ref(0)
-        const currentImage = ref("") */
-        /* const currentImage = computed(() => {
-            return images[Math.abs(inc.value)]
-        }) */
-        const oshino = context.root.$oshino
-       // const current = setCurrentImage()
+    setup(props, { root, refs}) {
+        const oshino = root.$oshino
         const images = oshino.state.images
-        //const increment = nuxtApp.$oshino.state.incrementer
-        /* const setCurrentImage = (i) => {
-            currentImage.value = images[Math.abs(i)]
-        }
-         */
-        /* const incrementImage = () =>  {
-            setCurrentImage(inc.value)
-            setTimeout(() => {
-                //var currentNum = state.value.incrementer + 1
+        //const c = ref(`/shinobu-1.jpg`)
+        const incre = ref(1)
+        const isPortrait = ref(false)
+        const curHeight = ref(0)
+        //const c = computed(() => `/shinobu-${incre.value}.jpg`)
+        
+        const getImageSize = () => {
+            
+            if (refs.image.firstChild.naturalHeight > refs.image.firstChild.naturalWidth) {
                 
-                inc.value++
-                if (inc.value == 8) {
-                    inc.value = 0
+                isPortrait.value = true
+            } else {
+                isPortrait.value = false
+            }
+            //naturalSize.value = refs[`image${v}`].naturalHeight
+        }
+        function check() {
+            //incre.value = oshino.inc.count
+            curHeight.value = refs.image.firstChild.naturalHeight
+            console.log(refs.image.firstChild.complete)
+            if (refs.image.firstChild.complete) {
+                getImageSize()
+            } else {
+                refs.image.firstChild.addEventListener('load', getImageSize)
+            }
+            
+            /* if (refs.image.complete) {
+                console.log("loaded")
+                getImageSize()
+            } else {
+                console.log("not loaded")
+                refs.image.addEventListener('load', getImageSize)
+            } */
+        }
+        const incrementImage = () =>  {
+            //setCurrentImage(inc)
+            
+            //c.value = images[incre.value - 1]
+            
+            setTimeout(() => {
+                if (incre.value === images.length) {
+                    incre.value = 1
+                } else {
+                    incre.value++
+                    check()
                 }
                 incrementImage()
                 
-            }, 4000)
-        } */
-        console.log(oshino.inc)
+            }, 5000)
+            
+        }
         onMounted(oshino.useImages)
         onMounted(oshino.incrementImage)
-         /* onMounted(oshino.useImages)
-         onMounted(incrementImage) */
+        onMounted(incrementImage)
+        onMounted(check)
+        /* watch(() => c.value, (val) => {
+            console.log(val)
+            check(val)
+        }) */
         return {
-            images
+            images,
+            isPortrait,
+            incre,
+            cur: computed(() => `/shinobu-${incre.value}.jpg`),
+            curHeight,
+            check
+        } 
+    },
+    /* methods: {
+        checkImageSize() {
+            if (this.$refs.image.naturalHeight > this.$refs.image.naturalWidth) {
+                this.isPortrait = true
+                console.log("true")
+            } else {
+                console.log("false")
+            }
         }
-    }
+    },
+    mounted() {
+        this.$nextTick(() => {
+            console.log(this.$refs)
+            if (this.$refs.image.complete) {
+                console.log("loaded")
+                //this.checkImageSize()
+            } else {
+                this.$refs.image.addEventListener('load', this.checkImageSize)
+            }
+        })
+    } */
 })
 </script>
 <style lang="scss">
@@ -81,27 +137,28 @@ export default defineComponent({
     }
     &__slides {
         position:relative;
-        width:60%;
+        max-width:70%;
+        aspect-ratio:14/12;
+        img {
+            
+        }
     }
 }
-/* .image-slideshow-item {
+.image-slideshow-item {
     display: inline-block;
     margin-right: 10px;
-} */
+    width:100%;
+}
 
 .image-slideshow-enter-active,
 .image-slideshow-leave-active {
-    transition: all 1s ease;
-    overflow:hidden;
-    visibility:visible;
-    position:absolute;
-    width:100%;
-    opacity:1;
+    transition: all .7s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    
 }
 
-.image-slideshow-enter-from,
+.image-slideshow-enter,
 .image-slideshow-leave-to {
-    visibility: hidden;
+    //visibility: hidden;
     opacity: 0;
     transform: translateY(30px);
 }

@@ -29,7 +29,7 @@ export default {
             },
         ]
     },
-    css: ['@/assets/style/index.css', '@/assets/style/global.scss'],
+    css: ['@/assets/style/index.css', '@/assets/style/global.scss', '@/assets/style/variables.scss'],
     plugins: [
         '~/plugins/provide.js'
     ],

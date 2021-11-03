@@ -3,30 +3,27 @@ const state = ref({
     images: [],
     currentImage: ""
 })
-const count = ref(0)
+const count = ref(1)
 const inc = reactive({ count })
 const useImages = () => {
-    for (var i = 1; i < 8; i++) {
+    for (var i = 1; i <= 8; i++) {
         state.value.images.push(`/shinobu-${i}.jpg`)
     }
 }
 const setCurrentImage = (i) => {
-    useImages()
-    state.value.currentImage = state.value.images[Math.abs(i)]
+    state.value.currentImage = state.value.images[i-1]
 }
 const incrementImage = () =>  {
     setCurrentImage(inc.count)
-    console.log(state.value.currentImage)
     setTimeout(() => {
-        //var currentNum = state.value.incrementer + 1
-        
-        inc.count++
-        if (inc.count == 8) {
-            inc.count = 0
+        if (inc.count === state.value.images.length - 1) {
+            inc.count = 1
+        } else {
+            inc.count++
         }
         incrementImage()
         
-    }, 6000)
+    }, 5000)
 }
 
 export default {
