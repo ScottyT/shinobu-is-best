@@ -7,7 +7,7 @@
         {{curHeight}}
         <div class="slideshow__slides" ref="image" >
             <transition name="image-slideshow" mode="out-in" tag="div" v-on:after-enter="check">
-                <img :src="cur" :key="$oshino.state.currentImage" />
+                <img :class="{'portrait':isPortrait}" :src="$oshino.state.currentImage === '' ? $oshino.state.images[0] : $oshino.state.currentImage" :key="$oshino.state.currentImage" />
                 <!-- <img ref="image" src="/shinobu-5.jpg"  /> -->
             </transition>
         </div>
@@ -24,16 +24,12 @@ export default defineComponent({
     setup(props, { root, refs}) {
         const oshino = root.$oshino
         const images = oshino.state.images
-        //const c = ref(`/shinobu-1.jpg`)
-        const incre = ref(1)
         const isPortrait = ref(false)
         const curHeight = ref(0)
-        //const c = computed(() => `/shinobu-${incre.value}.jpg`)
         
         const getImageSize = () => {
             
             if (refs.image.firstChild.naturalHeight > refs.image.firstChild.naturalWidth) {
-                
                 isPortrait.value = true
             } else {
                 isPortrait.value = false
@@ -41,78 +37,23 @@ export default defineComponent({
             //naturalSize.value = refs[`image${v}`].naturalHeight
         }
         function check() {
-            //incre.value = oshino.inc.count
             curHeight.value = refs.image.firstChild.naturalHeight
-            console.log(refs.image.firstChild.complete)
             if (refs.image.firstChild.complete) {
                 getImageSize()
             } else {
                 refs.image.firstChild.addEventListener('load', getImageSize)
             }
-            
-            /* if (refs.image.complete) {
-                console.log("loaded")
-                getImageSize()
-            } else {
-                console.log("not loaded")
-                refs.image.addEventListener('load', getImageSize)
-            } */
-        }
-        const incrementImage = () =>  {
-            //setCurrentImage(inc)
-            
-            //c.value = images[incre.value - 1]
-            
-            setTimeout(() => {
-                if (incre.value === images.length) {
-                    incre.value = 1
-                } else {
-                    incre.value++
-                    check()
-                }
-                incrementImage()
-                
-            }, 5000)
-            
         }
         onMounted(oshino.useImages)
         onMounted(oshino.incrementImage)
-        onMounted(incrementImage)
         onMounted(check)
-        /* watch(() => c.value, (val) => {
-            console.log(val)
-            check(val)
-        }) */
         return {
             images,
             isPortrait,
-            incre,
-            cur: computed(() => `/shinobu-${incre.value}.jpg`),
             curHeight,
             check
         } 
-    },
-    /* methods: {
-        checkImageSize() {
-            if (this.$refs.image.naturalHeight > this.$refs.image.naturalWidth) {
-                this.isPortrait = true
-                console.log("true")
-            } else {
-                console.log("false")
-            }
-        }
-    },
-    mounted() {
-        this.$nextTick(() => {
-            console.log(this.$refs)
-            if (this.$refs.image.complete) {
-                console.log("loaded")
-                //this.checkImageSize()
-            } else {
-                this.$refs.image.addEventListener('load', this.checkImageSize)
-            }
-        })
-    } */
+    }
 })
 </script>
 <style lang="scss">
