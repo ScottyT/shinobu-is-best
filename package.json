@@ -2,11 +2,14 @@
   "private": true,
   "scripts": {
     "dev": "nuxi dev --hostname localhost --port 4000",
-    "build": "nuxi build",
+    "build": "nuxi generate",
     "start": "node .output/server/index.mjs"
   },
   "devDependencies": {
-    "nuxt3": "latest",
-    "sass": "^1.43.4"
+    "@nuxt/bridge": "npm:@nuxt/bridge-edge@^3.0.0-27264486.37f86a0",
+    "@nuxtjs/pwa": "^3.3.5",
+    "nuxt-edge": "latest",
+    "sass": "^1.43.4",
+    "sass-loader": "^10.1.1"
   }
 }

@@ -1,15 +1,15 @@
 <template>
     <div class="slideshow">
         <div class="slideshow__message">
-            <h1 class="slideshow__message slideshow__message--h1">Shinobu is <strong>{{shinobuMsg}}</strong></h1>
+            <h1 class="slideshow__message slideshow__message--h1">Shinobu is <strong>{{message}}</strong></h1>
             <h2 class="slideshow__message slideshow__message--h2">{{headline}}</h2>
         </div>
-        <div class="slideshow__slides">
-            <transition-group name="image-slideshow">
-                <div class="slideshow__shinobu" v-for="i in $oshino.inc" :key="i">
-                    <img :src="$oshino.state.currentImage" />
-                </div>
-            </transition-group>
+        {{curHeight}}
+        <div class="slideshow__slides" ref="image" >
+            <transition name="image-slideshow" mode="out-in" tag="div" v-on:after-enter="check">
+                <img :class="{'portrait':isPortrait}" :src="$oshino.state.currentImage === '' ? $oshino.state.images[0] : $oshino.state.currentImage" :key="$oshino.state.currentImage" />
+                <!-- <img ref="image" src="/shinobu-5.jpg"  /> -->
+            </transition>
         </div>
     </div>
 </template>
@@ -21,25 +21,38 @@ export default defineComponent({
         columnStyle: String,
         headline:String
     },
-    setup(props) {
-        const nuxtApp = useNuxtApp()
-        const s = compShinobu()
-        console.log(s)
-       // const current = setCurrentImage()
-        const shinobuMsg = ref("")
-        const setMsg = () => {
-            shinobuMsg.value = props.message
+    setup(props, { root, refs}) {
+        const oshino = root.$oshino
+        const images = oshino.state.images
+        const isPortrait = ref(false)
+        const curHeight = ref(0)
+        
+        const getImageSize = () => {
+            
+            if (refs.image.firstChild.naturalHeight > refs.image.firstChild.naturalWidth) {
+                isPortrait.value = true
+            } else {
+                isPortrait.value = false
+            }
+            //naturalSize.value = refs[`image${v}`].naturalHeight
         }
-        //const increment = nuxtApp.$oshino.state.incrementer
-        const images = nuxtApp.$oshino.state.images
-        onMounted(setMsg)
-        onMounted(nuxtApp.$oshino.useImages)
-        onMounted(nuxtApp.$oshino.incrementImage)
+        function check() {
+            curHeight.value = refs.image.firstChild.naturalHeight
+            if (refs.image.firstChild.complete) {
+                getImageSize()
+            } else {
+                refs.image.firstChild.addEventListener('load', getImageSize)
+            }
+        }
+        onMounted(oshino.useImages)
+        onMounted(oshino.incrementImage)
+        onMounted(check)
         return {
-            shinobuMsg,
             images,
-            s
-        }
+            isPortrait,
+            curHeight,
+            check
+        } 
     }
 })
 </script>
@@ -65,27 +78,28 @@ export default defineComponent({
     }
     &__slides {
         position:relative;
-        width:50%;
+        max-width:70%;
+        aspect-ratio:14/12;
+        img {
+            
+        }
     }
 }
 .image-slideshow-item {
     display: inline-block;
     margin-right: 10px;
+    width:100%;
 }
 
 .image-slideshow-enter-active,
 .image-slideshow-leave-active {
-    transition: all 1s ease;
-    overflow:hidden;
-    visibility:visible;
-    position:absolute;
-    width:100%;
-    opacity:1;
+    transition: all .7s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    
 }
 
-.image-slideshow-enter-from,
+.image-slideshow-enter,
 .image-slideshow-leave-to {
-    visibility: hidden;
+    //visibility: hidden;
     opacity: 0;
     transform: translateY(30px);
 }
