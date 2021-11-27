@@ -29,7 +29,26 @@ export default {
             },
         ]
     },
-    css: ['@/assets/style/index.css', '@/assets/style/global.scss', '@/assets/style/variables.scss'],
+    css: ['@/assets/style/index.css', '@/assets/style/global.scss'],
+    /* vite: {
+        css: {
+            preprocessorOptions: {
+                scss: {
+                    sourceMap: true,
+                    additionalData: `@import "@/assets/style/variables.scss";`
+                }
+            }
+        }
+    }, */
+    build: {
+        loaders: {
+            scss: {
+                sourceMap: true,
+                implementation: require("sass"),
+                additionalData: `@import "~@/assets/style/variables.scss";`
+            }
+        }
+    },
     plugins: [
         '~/plugins/provide.js'
     ],
