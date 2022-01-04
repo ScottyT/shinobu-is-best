@@ -24,7 +24,7 @@
     }
 
     @if $breakpoint==mobileLargeMax {
-        @media only screen and (max-width: 768px - 1px) {
+        @media only screen and (max-width: 768px + 1px) {
             @content;
         }
     }
@@ -40,4 +40,24 @@
             @content;
         }
     }
+    
+    @if $breakpoint==tabletMid {
+        @media only screen and (min-width: 1200px) {
+            @content;
+        }
+    }
+}
+
+@mixin grid($width, $gap) {
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax($width, 1fr));
+    column-gap: $gap;
+    row-gap: $gap;
+}
+@mixin flex($gap, $direction) {
+    display:flex;
+    column-gap:$gap;
+    row-gap:$gap;
+    flex-wrap:wrap;
+    flex-direction: $direction;
 }

@@ -9,12 +9,13 @@ img {
 }
 body {
     font-family: Arial, Helvetica, sans-serif;
-    overflow:hidden;
+    overflow:auto;
 }
 .main {
     display:flex;
     max-width:100%;
     flex: 1 0 auto;
+    flex-direction: column;
 }
 
 img {

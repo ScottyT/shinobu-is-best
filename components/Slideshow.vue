@@ -4,11 +4,11 @@
             <h1 class="slideshow__message slideshow__message--h1">Shinobu is <strong>{{message}}</strong></h1>
             <h2 class="slideshow__message slideshow__message--h2">{{headline}}</h2>
         </div>
-        {{curHeight}}
-        <div class="slideshow__slides" ref="image" >
+        <div class="slideshow__slides" ref="image">
             <transition name="image-slideshow" mode="out-in" tag="div" v-on:after-enter="check">
-                <img :class="{'portrait':isPortrait}" :src="$oshino.state.currentImage === '' ? $oshino.state.images[0] : $oshino.state.currentImage" :key="$oshino.state.currentImage" />
-                <!-- <img ref="image" src="/shinobu-5.jpg"  /> -->
+                <img :class="{'slideshow__image--portrait':isPortrait}" class="slideshow__image" :src="$oshino.state.currentImage === '' ? $oshino.state.images[0] : 
+                    $oshino.state.currentImage" :key="$oshino.state.currentImage" />
+                <!-- <img class="slideshow__image--portrait" ref="image" src="/shinobu-5.jpg"  /> -->
             </transition>
         </div>
     </div>
@@ -62,6 +62,9 @@ export default defineComponent({
     width:100%;
     display:flex;
     justify-content:space-between;
+    @include respond(mobileLargeMax) {
+        flex-direction:column;
+    }
     &__message {
         place-self:center;
         padding:10px;
@@ -78,10 +81,18 @@ export default defineComponent({
     }
     &__slides {
         position:relative;
-        max-width:70%;
-        aspect-ratio:14/12;
-        img {
-            
+        max-width:100%;
+        @include respond(tabletMid) {
+            max-width:70%;
+        }
+    }
+    &__image {
+        aspect-ratio:16/9;
+        @include respond(mobileLargeMax) {
+            aspect-ratio: 5/7;
+        }
+        &--portrait {
+            aspect-ratio: 14/16;
         }
     }
 }
