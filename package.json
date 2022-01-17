@@ -11,5 +11,8 @@
     "nuxt-edge": "latest",
     "sass": "^1.43.4",
     "sass-loader": "^10.1.1"
+  },
+  "dependencies": {
+    "follow-redirects": "^1.14.7"
   }
 }
