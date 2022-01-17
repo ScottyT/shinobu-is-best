@@ -6,7 +6,7 @@
     "start": "node .output/server/index.mjs"
   },
   "devDependencies": {
-    "@nuxt/bridge": "npm:@nuxt/bridge-edge@^3.0.0-27264486.37f86a0",
+    "@nuxt/bridge": "npm:@nuxt/bridge-edge@^3.0.0-27373739.0ed2d4a",
     "@nuxtjs/pwa": "^3.3.5",
     "nuxt-edge": "latest",
     "sass": "^1.43.4",
