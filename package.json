@@ -6,11 +6,12 @@
     "start": "node .output/server/index.mjs"
   },
   "devDependencies": {
-    "@nuxt/bridge": "npm:@nuxt/bridge-edge@^3.0.0-27373739.0ed2d4a",
+    "@nuxt/bridge": "npm:@nuxt/bridge-edge@^3.0.0-27389502.88da719",
     "@nuxtjs/pwa": "^3.3.5",
     "nuxt-edge": "latest",
     "sass": "^1.43.4",
-    "sass-loader": "^10.1.1"
+    "sass-loader": "^10.1.1",
+    "std-env": "^3.0.1"
   },
   "dependencies": {
     "follow-redirects": "^1.14.7"
