@@ -8,7 +8,7 @@
             <transition name="image-slideshow" mode="out-in" tag="div" v-on:after-enter="check">
                 <img :class="{'slideshow__image--portrait':isPortrait}" class="slideshow__image" :src="$oshino.state.currentImage === '' ? $oshino.state.images[0] : 
                     $oshino.state.currentImage" :key="$oshino.state.currentImage" />
-                <!-- <img class="slideshow__image--portrait" ref="image" src="/shinobu-5.jpg"  /> -->
+                <!-- <img class="slideshow__image--portrait" ref="image" src="/shinobu-7.jpg"  /> -->
             </transition>
         </div>
     </div>
@@ -92,7 +92,10 @@ export default defineComponent({
             aspect-ratio: 5/7;
         }
         &--portrait {
-            aspect-ratio: 14/16;
+            aspect-ratio: 12/16;
+            @include respond(mobileLargeMax) {
+                height:calc(100vh - 125px);
+            }
         }
     }
 }
